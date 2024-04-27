@@ -1,0 +1,33 @@
+Registers
+0x10: LDA - Load A
+0x11: LDB - Load B
+0x12: LDC - Load C
+0x13: SAB - Switch A and B
+0x14: SBC - Switch B and C
+0x15: SAC - Switch A and C
+
+Math
+0x20: ADD - A = A + B
+0x21: SUB - A = A - B
+0x22: MUL - A = A * B
+0x23: GRT - C is 0x00 if A is greater than B
+0x24: EAQ - C is 0x00 if A is equal to B
+
+I/O
+0xE0: PRN - Print character value of A
+0xE1: GET - Get one character and put it in A
+
+Conditional and Unconditional Jumps
+0xE2: JMP - Jump no matter what
+0xE3: JNZ - Jump if C is zero (use with GRT and EAQ)
+0xE4: JTA - Jump to A register
+0xE5: JTB - Jump to B register
+
+Memory
+0xEB: WMEM - Write Memory (regiser A is data, B is addr)
+0xEC: RMEM - Read Memory (register A is data, B is addr)
+
+Other
+0xEA: NOP - No Operation
+0xFD: DEB - Debug (print registers and memory)
+0xFF: HLT - Stop execution and shut down
