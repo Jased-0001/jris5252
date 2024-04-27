@@ -12,7 +12,7 @@ def preload(memory:list):
   return ({
     "author": "jasedxyz",
     "name": "cryptography",
-    "version": "v1"
+    "version": "v2"
   }, memory)
 
 def onCycle(memory:list,registers:dict):
@@ -23,6 +23,7 @@ def insNotFound(memory:list,registers:dict):
   didRandHandleIt, memory, registers = rand.insNotFound(memory, registers)
   if didRandHandleIt:
     return (True, memory, registers)
+    
   elif registers["ins"] == 0x27: # keyg
     if registers["mci"] == 0xff:
       for i in range(0,4):
@@ -32,6 +33,15 @@ def insNotFound(memory:list,registers:dict):
     elif registers["mci"] != 0xff:
       registers["mci"] = registers["ins"]
     return (True, memory, registers)
+
+  elif registers["ins"] == 0x28: # bsftr
+    registers["a"] = registers["a"] >> registers["b"]
+    return (True, memory, registers)
+
+  elif registers["ins"] == 0x29: # bsftl
+    registers["a"] = registers["a"] << registers["b"]
+    return (True, memory, registers)
+
   else:
     return (False, memory, registers)
 
