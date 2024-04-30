@@ -6,7 +6,6 @@ authors = ["Jase Williams <jased@jased.xyz>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.12"
-getch = "^1.0"
 getkey = "^0.6.5"
 
 [tool.pyright]

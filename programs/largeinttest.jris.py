@@ -1,3 +1,5 @@
+from main import execute
+
 execute([       # ; Ignore all the debs, testing
   0x10, 0xffff, # lda 0xffff
   0xfd,         # deb

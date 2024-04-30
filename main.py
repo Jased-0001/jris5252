@@ -1,6 +1,10 @@
+"""
+jris5252
+- Written by jasedxyz <jased@jased.xyz
+"""
+
 import types
 from time import sleep
-
 from getkey import getkey
 
 
@@ -22,64 +26,60 @@ class MemoryOverflow(Exception):
 class NoRomFound(Exception):
   pass
 
-
 def dump(memory: list = [],
-         registers: dict = {},
-         dumpRegisters: bool = True,
-         dumpMemory: bool = True,
-         dumpDecryptedMemory: bool = True):
+   registers: dict = {},
+   dumpRegisters: bool = True,
+   dumpMemory: bool = True,
+   dumpDecodedMemory: bool = True):
+  """Dump memory but cool"""
   if len(memory) == 0:
     dumpMemory = False
-    dumpDecryptedMemory = False
+    dumpDecodedMemory = False
   if dumpRegisters:
     print(registers)
   if dumpMemory:
     print(memory)
-  if dumpDecryptedMemory:
+  if dumpDecodedMemory:
     for i in memory:
       print(chr(i), end="", flush=True)
 
-
 def replaceStringsWithDecimalValue(memory: list):
-  # last thing before execution:
-  # Replace strings with decimal value
-  # This works apparently?????????
-
+  """cool"""
+  
   # Used to know if we found every string
   notfoundall = True
   found = 0
-
+  
   # While we haven't found every string...
   while notfoundall:
     # reset the values
     notfoundall = False
     found = 0
-
+  
     # and loop through the memory
     for i in range(len(memory)):
       # Is it longer than one byte and is it not an integer?
       if not isinstance(memory[i], int) and len(memory[i]) != 1:
         _TEMP = []
-
+  
         # Loop through every byte in the string and append
         # the ord value to _TEMP
         for x in memory[i]:
           _TEMP.append(ord(x))
-
+  
         # Put it where we found the string
         memory[i] = _TEMP
-
+  
         # "Unpack" the list we made (I DONT KNOW HOW THIS WORKS)
         memory = memory[:i] + memory[i] + memory[i + 1:]
         found += 1
     notfoundall = found != 0
-
+  
   for i in range(len(memory)):
     if not isinstance(memory[i], int):
       memory[i] = ord(memory[i])
-
-  return memory
-
+  
+  return memory 
 
 def execute(rom: list = [],
             ram: list = [],

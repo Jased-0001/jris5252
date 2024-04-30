@@ -1,3 +1,5 @@
+from main import execute
+
 execute([
   0x11, 0x0f, # ldb 0x0f ; mem address to start at
   0xe1,       # get      ; Get character
