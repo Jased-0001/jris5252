@@ -1,3 +1,6 @@
+JRIS (Jasedxyz's Reduced Instruction Set) Instruction Sheet
+version 1 (for the jris5252)
+
 Registers
 0x10: LDA - Load A
 0x11: LDB - Load B
