@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jris5252"
-version = "1"
+version = "2"
 description = "Jasedxyz's Reduced Instruction Set CPU 5252"
 authors = ["Jase Williams <jased@jased.xyz>"]
 
