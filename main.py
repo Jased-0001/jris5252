@@ -1,11 +1,12 @@
 """
 jris5252
-- Written by jasedxyz <jased@jased.xyz
+- Written by jasedxyz <jased@jased.xyz>
 """
 
 import types
 from time import sleep
 from getkey import getkey
+
 
 
 # Custom exceptions
@@ -26,11 +27,12 @@ class MemoryOverflow(Exception):
 class NoRomFound(Exception):
   pass
 
+
 def dump(memory: list = [],
-   registers: dict = {},
-   dumpRegisters: bool = True,
-   dumpMemory: bool = True,
-   dumpDecodedMemory: bool = True):
+         registers: dict = {},
+         dumpRegisters: bool = True,
+         dumpMemory: bool = True,
+         dumpDecodedMemory: bool = True):
   """Dump memory but cool"""
   if len(memory) == 0:
     dumpMemory = False
@@ -43,43 +45,45 @@ def dump(memory: list = [],
     for i in memory:
       print(chr(i), end="", flush=True)
 
+
 def replaceStringsWithDecimalValue(memory: list):
   """cool"""
-  
+
   # Used to know if we found every string
   notfoundall = True
   found = 0
-  
+
   # While we haven't found every string...
   while notfoundall:
     # reset the values
     notfoundall = False
     found = 0
-  
+
     # and loop through the memory
     for i in range(len(memory)):
       # Is it longer than one byte and is it not an integer?
       if not isinstance(memory[i], int) and len(memory[i]) != 1:
         _TEMP = []
-  
+
         # Loop through every byte in the string and append
         # the ord value to _TEMP
         for x in memory[i]:
           _TEMP.append(ord(x))
-  
+
         # Put it where we found the string
         memory[i] = _TEMP
-  
+
         # "Unpack" the list we made (I DONT KNOW HOW THIS WORKS)
         memory = memory[:i] + memory[i] + memory[i + 1:]
         found += 1
     notfoundall = found != 0
-  
+
   for i in range(len(memory)):
     if not isinstance(memory[i], int):
       memory[i] = ord(memory[i])
-  
-  return memory 
+
+  return memory
+
 
 def execute(rom: list = [],
             ram: list = [],
@@ -336,6 +340,8 @@ by {addonInfo['author']}")
           running = addonNamespace._stoppingData[2]
         if not endDebDisable and not running:
           dump(memory, registers)
+
+        if not running:
           return (memory, registers)
 
     except MemoryOverflow as e:
@@ -346,13 +352,16 @@ by {addonInfo['author']}")
       else:
         for _ in range(len(memory) - (len(rom) + ram_size)):
           memory.pop()
+      return (memory, registers)
     except RegisterOverflow as e:
       print(f"  [!] Register Overflow! (resetting {e.register})")
       exec(f"registers[\"{e.register}\"] = 0x00")
+      return (memory, registers)
     except Exception as e:
       print(f"  [!] CPU exception ({e}, dumping)")
       running = False
       dump(memory, registers)
+      return (memory, registers)
 
 
 def demo():
