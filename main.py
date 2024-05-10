@@ -103,16 +103,15 @@ def execute(rom: list = [],
   rom = replaceStringsWithDecimalValue(rom)
 
   # stuff to create blank ram if not already exists
-  # will ignore ram_size if ram already there
   if len(ram) > 0:
     ram = replaceStringsWithDecimalValue(ram)
-    ram_size = len(ram)
-  else:
-    if ram_size == -1:
-      ram_size = maxSize - len(rom)
-    if ram_size != 0:
-      for _ in range(ram_size):
-        ram.append(0x00)
+    #ram_size = len(ram)
+    
+  if ram_size == -1:
+    ram_size = maxSize - len(rom)
+  if ram_size != 0:
+    for _ in range(ram_size):
+      ram.append(0x00)
 
   memory = []
 
@@ -121,6 +120,10 @@ def execute(rom: list = [],
     memory.append(i)
   for i in ram:
     memory.append(i)
+
+  if len(memory) > maxSize:
+    while len(memory) != maxSize:
+      memory.pop()
 
   addonNamespace = types.SimpleNamespace()
 
