@@ -4,7 +4,6 @@ jris5252
 """
 
 import types
-from time import sleep
 from getkey import getkey
 
 
@@ -89,7 +88,6 @@ def execute(rom: list = [],
             ram: list = [],
             ram_size: int = -1,
             ignore_overflow: bool = False,
-            speed: int = 0,
             noinfo: bool = False,
             maxSize: int = 0xff,
             endDebDisable: bool = False,
@@ -143,8 +141,7 @@ by {addonInfo['author']}")
     Rom size = {len(rom)} Bytes
     Memory   = {len(memory)} Bytes
     Maximum  = {maxSize} bytes
-    {'We will ignore overflows' if ignore_overflow else 'Do not ignore overflows.'}
-    {f'Speed is is {1/speed} Hz' if speed>0 else ''}""")
+    {'We will ignore overflows' if ignore_overflow else 'Do not ignore overflows.'}""")
 
   # Define the 3 user registers, program register
   # the MultiCycle registers and the current instruction
@@ -314,9 +311,6 @@ by {addonInfo['author']}")
             pass
 
       if running:
-        if speed > 0:
-          sleep(1 / speed)
-
         registers["prg"] += 0x01
 
         if registers["prg"] >= len(memory):
