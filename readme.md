@@ -56,12 +56,20 @@ Using addons, you can:
 
 ## ``execute()`` arguments (in order)
 - rom - list
+  - Required. Contains instructions to run
 - ram - list
+  - Optional. Contains ram defined from program to load into CPU
 - ram_size - int
+  - Optional, defaults to the maximum. Use to choose how much RAM you want in bytes
 - ignore_overflow - bool
-- speed - int
+  - Optional, defaults to false. Use to ignore register and memory overflows
 - noinfo - bool
+  - Optional, defaults to false. Use if you don't want the CPU to output its information
+    - Information is how much memory the CPU can access
 - maxSize - int
+  - Optional, defaults to 0xff (255). Use to change the maximum register and memory size
 - endDebDisable - bool
+  - Optional, defaults to false. Basically just dumps the memory upon the CPU halting
 - addon - str
+  - Optional. Use for addons
 
